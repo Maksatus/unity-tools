@@ -1,13 +1,7 @@
 {
   "name": "com.maksatus.unity-tools",
-  "description": "tools",
+  "description": "Different little tools.",
   "version": "0.0.1",
   "unity": "2022.3",
-  "displayName": "unity-tools",
-  "samples": [
-    {
-      "displayName": "unity-tools",
-      "description": "tools"
-    }
-  ]
+  "displayName": "Tools"
 }
