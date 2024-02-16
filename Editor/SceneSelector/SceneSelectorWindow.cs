@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
 
 namespace Editor.SceneSelector
 {
@@ -13,7 +14,7 @@ namespace Editor.SceneSelector
         [MenuItem("Tools/Scene Selector %`")]
         public static void Init()
         {
-            GetWindowWithRect(typeof(SceneSelectorWindow), new Rect(0, 0, 230, 350), false, "Scene Selector");
+            GetWindowWithRect(typeof(SceneSelectorWindow), new Rect(0, 0, 260, 400), false, "Scene Selector");
         }
 
         public void CreateGUI()
@@ -27,17 +28,6 @@ namespace Editor.SceneSelector
             rootVisualElement.Add(_listContainer);
 
             UpdateSceneList("");
-
-            var saveSceneButton = new Button(() =>
-            {
-                Debug.Log("Save");
-                AssetDatabase.SaveAssets();
-                EditorSceneManager.SaveOpenScenes();
-            })
-            {
-                text = "Save scene!"
-            };
-            rootVisualElement.Add(saveSceneButton);
         }
 
         private void UpdateSceneList(string searchText)
@@ -45,12 +35,31 @@ namespace Editor.SceneSelector
             _listContainer.Clear();
             var sceneGuids = AssetDatabase.FindAssets("t:Scene");
 
+            var scenesByFolder = new Dictionary<string, List<string>>();
+
             foreach (var sceneGuid in sceneGuids)
             {
-                var sceneButton = CreateSceneButton(sceneGuid);
-                if (sceneButton != null && sceneButton.Q<Label>().text.ToLower().Contains(searchText.ToLower()))
+                var scenePath = AssetDatabase.GUIDToAssetPath(sceneGuid);
+                var folderPath = System.IO.Path.GetDirectoryName(scenePath);
+                if (!scenesByFolder.ContainsKey(folderPath))
                 {
-                    _listContainer.Add(sceneButton);
+                    scenesByFolder[folderPath] = new List<string>();
+                }
+                scenesByFolder[folderPath].Add(sceneGuid);
+            }
+
+            foreach (var folder in scenesByFolder)
+            {
+                var folderLabel = new Label(folder.Key);
+                _listContainer.Add(folderLabel);
+
+                foreach (var sceneGuid in folder.Value)
+                {
+                    var sceneButton = CreateSceneButton(sceneGuid);
+                    if (sceneButton != null && sceneButton.Q<Label>().text.ToLower().Contains(searchText.ToLower()))
+                    {
+                        _listContainer.Add(sceneButton);
+                    }
                 }
             }
         }
@@ -59,26 +68,27 @@ namespace Editor.SceneSelector
         {
             var scenePath = AssetDatabase.GUIDToAssetPath(sceneGuid);
             var buttonGroup = new VisualElement();
-            
+
             buttonGroup.style.flexDirection = FlexDirection.Row;
             buttonGroup.style.marginLeft = 3;
-            
+
             var sceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath);
             if (sceneAsset == null || sceneAsset.name is "Basic" or "Standard")
             {
                 return null;
             }
             var label = new Label($"{sceneAsset.name}");
-            label.style.width = 170;
+            label.style.width = 200;
             buttonGroup.Add(label);
-            
+
             var openButton = new Button(() =>
             {
-                EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single); })
+                EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
+            })
             {
                 text = "Open"
             };
-            
+
             buttonGroup.Add(openButton);
             return buttonGroup;
         }
