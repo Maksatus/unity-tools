@@ -14,7 +14,6 @@ namespace Editor.SceneSelector
         private const string WindowTitle = "Scene Selector";
         private const string SceneAssetType = "t:Scene";
         private const string AssetsFolderPrefix = "Assets/";
-        private const int WindowHeight = 400;
         private const int FolderLabelFontSize = 13;
         private const int SceneLabelWidth = 200;
         private const float ButtonGroupMarginLeft = 3f;
@@ -22,15 +21,16 @@ namespace Editor.SceneSelector
         private const int MinWindowHeight = 200;
         private const int MaxWindowHeight = 700; 
 
+        private const int BaseItemHeight = 20; 
+        private const int SearchFieldHeight = 30;
+        
         private TextField _searchField;
         private ScrollView _listContainer;
 
         [MenuItem("Tools/Scene Selector %`")]
         public static void Init()
         {
-            SceneSelectorWindow window = GetWindow<SceneSelectorWindow>(WindowTitle);
-            window.minSize = new Vector2(WindowWidth, MinWindowHeight);
-            window.maxSize = new Vector2(WindowWidth, MaxWindowHeight);
+            var window = GetWindow<SceneSelectorWindow>(WindowTitle);
             window.Show();
         }
 
@@ -50,7 +50,7 @@ namespace Editor.SceneSelector
 
         private void CreateListContainer()
         {
-            _listContainer = new ScrollView { style = { height = WindowHeight } };
+            _listContainer = new ScrollView { style = { height = MaxWindowHeight } };
             rootVisualElement.Add(_listContainer);
         }
 
@@ -59,9 +59,22 @@ namespace Editor.SceneSelector
             _listContainer.Clear();
             var scenesByFolder = GetScenesOrganizedByFolder();
             DisplayScenesByFolder(scenesByFolder, searchText.ToLower());
+            
+            UpdateWindowSize(scenesByFolder, searchText);
         }
-
-        private Dictionary<string, List<string>> GetScenesOrganizedByFolder()
+            
+        private void UpdateWindowSize(Dictionary<string, List<string>> scenesByFolder, string searchText)
+        {
+            int itemCount = scenesByFolder.Sum(folder => folder.Value.Count(scene => scene.ToLower().Contains(searchText.ToLower()))) + scenesByFolder.Count; // Подсчитываем общее количество элементов, включая заголовки папок
+            int totalHeight = itemCount * BaseItemHeight + SearchFieldHeight;
+            
+            totalHeight = Mathf.Clamp(totalHeight, MinWindowHeight, MaxWindowHeight);
+            
+            minSize = new Vector2(WindowWidth, totalHeight);
+            maxSize = new Vector2(WindowWidth, totalHeight);
+        }
+        
+        private static Dictionary<string, List<string>> GetScenesOrganizedByFolder()
         {
             var sceneGuids = AssetDatabase.FindAssets(SceneAssetType)
                 .Select(AssetDatabase.GUIDToAssetPath)
