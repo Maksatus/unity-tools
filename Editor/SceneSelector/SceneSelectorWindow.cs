@@ -14,11 +14,13 @@ namespace Editor.SceneSelector
         private const string WindowTitle = "Scene Selector";
         private const string SceneAssetType = "t:Scene";
         private const string AssetsFolderPrefix = "Assets/";
-        private const int WindowWidth = 260;
         private const int WindowHeight = 400;
         private const int FolderLabelFontSize = 13;
         private const int SceneLabelWidth = 200;
         private const float ButtonGroupMarginLeft = 3f;
+        private const int WindowWidth = 260;
+        private const int MinWindowHeight = 200;
+        private const int MaxWindowHeight = 700; 
 
         private TextField _searchField;
         private ScrollView _listContainer;
@@ -26,7 +28,9 @@ namespace Editor.SceneSelector
         [MenuItem("Tools/Scene Selector %`")]
         public static void Init()
         {
-            var window = GetWindowWithRect<SceneSelectorWindow>(new Rect(0, 0, WindowWidth, WindowHeight), false, WindowTitle);
+            SceneSelectorWindow window = GetWindow<SceneSelectorWindow>(WindowTitle);
+            window.minSize = new Vector2(WindowWidth, MinWindowHeight);
+            window.maxSize = new Vector2(WindowWidth, MaxWindowHeight);
             window.Show();
         }
 
