@@ -16,6 +16,7 @@ namespace Editor.RenameObjects
 		private string _insertAfter;
 		private string _insertAfterWord;
 		private bool _convertToLowercase;
+		private bool _trimLast;
 
 
 		[MenuItem("Tools/RenameObjectsTool #`")]
@@ -48,6 +49,8 @@ namespace Editor.RenameObjects
 			_insertAfterWord = EditorGUILayout.TextField("Insert After By", _insertAfterWord);
 			GUILayout.Space (10);
 			_convertToLowercase = EditorGUILayout.Toggle("Convert to Lowercase", _convertToLowercase);
+			GUILayout.Space (10);
+			_trimLast = EditorGUILayout.Toggle("Deleting the last characters", _trimLast);
 			GUILayout.Space (10);
 			if (GUILayout.Button ("Change Names"))
 				ChangeObjNames();
@@ -90,6 +93,13 @@ namespace Editor.RenameObjects
 			if (_convertToLowercase)
 			{
 				return output.ToString().ToLower();
+			}
+			if (_trimLast)
+			{
+				char[] charsToTrim = {',', '.', ' ','_'};
+				var words = output.ToString().Split(charsToTrim);
+
+				return output.ToString().Replace(words[^1],string.Empty).TrimEnd(charsToTrim);
 			}
 
 			return output.ToString();
