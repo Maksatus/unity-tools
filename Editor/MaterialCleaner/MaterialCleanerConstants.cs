@@ -2,7 +2,7 @@ namespace UnityTools.Editor.MaterialCleaner
 {
     public static class MaterialCleanerConstants
     {
-        public const string MenuPath = "Tools/Material Property Cleaner";
+        public const string MenuPath = "Kefir/Tech Art Tools/Utilities/Material Property Cleaner";
         public const string WindowTitle = "Property Cleaner";
         public const float MinWindowWidth = 380f;
         public const float MinWindowHeight = 300f;

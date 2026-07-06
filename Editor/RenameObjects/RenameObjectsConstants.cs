@@ -2,7 +2,7 @@ namespace UnityTools.Editor.RenameObjects
 {
     public static class RenameObjectsConstants
     {
-        public const string MenuPath = "Tools/RenameObjectsTool #`";
+        public const string MenuPath = "Kefir/Tech Art Tools/Utilities/RenameObjectsTool #`";
         public const string WindowTitle = "Rename Objects";
         public const float MinWindowWidth = 300f;
         public const float MinWindowHeight = 400f;

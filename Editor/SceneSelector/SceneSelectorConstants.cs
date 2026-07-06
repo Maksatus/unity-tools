@@ -2,7 +2,7 @@ namespace UnityTools.Editor.SceneSelector
 {
     public static class SceneSelectorConstants
     {
-        public const string MenuPath = "Tools/Scene Selector %`";
+        public const string MenuPath = "Kefir/Tech Art Tools/Utilities/Scene Selector %`";
         public const string WindowTitle = "Scene Selector";
         public const float MinWindowWidth = 260f;
         public const float MaxWindowWidth = 600f;
