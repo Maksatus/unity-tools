@@ -11,6 +11,9 @@ namespace UnityTools.Editor.SceneSelector
         public const string StyleSheetPath = "Packages/com.maksatus.unity-tools/Editor/SceneSelector/Views/SceneSelectorView.uss";
         public const string SceneIconName = "SceneAsset Icon";
         public const string FolderIconName = "Folder Icon";
+        public const string GroupToggleText = "≡";
+        public const string ShowFlatTooltip = "Show flat list";
+        public const string ShowGroupedTooltip = "Group by folder";
         public const string AddAdditiveText = "+";
         public const string RemoveAdditiveText = "−";
         public const string AddAdditiveTooltip = "Load scene additively";
@@ -25,5 +28,6 @@ namespace UnityTools.Editor.SceneSelector
 
         public const string SettingsPath = "Project/Unity Tools/Scene Selector";
         public const string SettingsFilePath = "ProjectSettings/SceneSelectorSettings.asset";
+        public const string UserStateFilePath = "UserSettings/SceneSelectorState.asset";
     }
 }

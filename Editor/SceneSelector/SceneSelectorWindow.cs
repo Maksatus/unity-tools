@@ -23,10 +23,14 @@ namespace UnityTools.Editor.SceneSelector
 
         public void CreateGUI()
         {
-            _view = new SceneSelectorView(rootVisualElement);
-            _view.ContentChanged += UpdateWindowSize;
+            var groupByFolder = SceneSelectorUserState.instance.IsGroupedByFolder;
 
-            var model = new SceneSelectorModel(new AssetDatabaseSceneRepository(SceneSelectorSettings.instance));
+            _view = new SceneSelectorView(rootVisualElement, groupByFolder);
+            _view.ContentChanged += UpdateWindowSize;
+            _view.GroupingChanged += OnGroupingChanged;
+
+            var model = new SceneSelectorModel(new AssetDatabaseSceneRepository(SceneSelectorSettings.instance),
+                groupByFolder);
             _presenter = new SceneSelectorPresenter(model, _view, new EditorSceneOpener());
             _presenter.Start();
 
@@ -36,6 +40,9 @@ namespace UnityTools.Editor.SceneSelector
         }
 
         private void OnSettingsChanged() => _presenter?.RefreshScenes();
+
+        private void OnGroupingChanged(bool groupByFolder) =>
+            SceneSelectorUserState.instance.SetGroupByFolder(groupByFolder);
 
         private void OnProjectChange() => _presenter?.RefreshScenes();
 
@@ -50,7 +57,10 @@ namespace UnityTools.Editor.SceneSelector
             SceneSelectorSettings.Changed -= OnSettingsChanged;
 
             if (_view != null)
+            {
                 _view.ContentChanged -= UpdateWindowSize;
+                _view.GroupingChanged -= OnGroupingChanged;
+            }
 
             _presenter?.Dispose();
             _presenter = null;

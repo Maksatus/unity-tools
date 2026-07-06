@@ -10,6 +10,7 @@ A compact popup listing every scene in `Assets/`, grouped by folder.
 - **Click a row** — opens the scene in *Single* mode. Unsaved changes prompt a save dialog first.
 - **`+` button** — loads the scene *additively*, keeping the current ones.
 - **`−` button** — unloads an additively loaded scene. Loaded scenes are highlighted in blue.
+- **`≡` button** — toggles between folder grouping and a flat alphabetical list.
 
 The list refreshes automatically when scenes are added, removed, or opened elsewhere in the editor.
 

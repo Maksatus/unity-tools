@@ -13,16 +13,20 @@ namespace UnityTools.Editor.SceneSelector.Views
     {
         private readonly ScrollView _sceneList;
         private float _contentHeight;
+        private bool _groupByFolder = true;
 
         public event Action<string> SearchChanged;
         public event Action<SceneInfo> OpenSceneRequested;
         public event Action<SceneInfo> AdditiveToggleRequested;
+        public event Action<bool> GroupingChanged;
         public event Action ContentChanged;
 
         public float PreferredHeight => _contentHeight + HeaderHeight;
 
-        public SceneSelectorView(VisualElement root)
+        public SceneSelectorView(VisualElement root, bool groupByFolder = true)
         {
+            _groupByFolder = groupByFolder;
+
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(StyleSheetPath);
             if (styleSheet != null)
                 root.styleSheets.Add(styleSheet);
@@ -35,6 +39,22 @@ namespace UnityTools.Editor.SceneSelector.Views
             searchField.AddToClassList("scene-selector__search");
             searchField.RegisterValueChangedCallback(evt => SearchChanged?.Invoke(evt.newValue));
             header.Add(searchField);
+
+            var groupToggleButton = new Button
+            {
+                text = GroupToggleText,
+                tooltip = _groupByFolder ? ShowFlatTooltip : ShowGroupedTooltip
+            };
+            groupToggleButton.AddToClassList("scene-selector__settings-button");
+            groupToggleButton.EnableInClassList("scene-selector__group-toggle--grouped", _groupByFolder);
+            groupToggleButton.clicked += () =>
+            {
+                _groupByFolder = !_groupByFolder;
+                groupToggleButton.tooltip = _groupByFolder ? ShowFlatTooltip : ShowGroupedTooltip;
+                groupToggleButton.EnableInClassList("scene-selector__group-toggle--grouped", _groupByFolder);
+                GroupingChanged?.Invoke(_groupByFolder);
+            };
+            header.Add(groupToggleButton);
 
             var settingsButton = new Button(
                 () => SettingsService.OpenProjectSettings(SettingsPath))
@@ -63,13 +83,14 @@ namespace UnityTools.Editor.SceneSelector.Views
             {
                 foreach (var group in groups)
                 {
-                    _sceneList.Add(CreateFolderHeader(group));
+                    if (!string.IsNullOrEmpty(group.Folder))
+                        _sceneList.Add(CreateFolderHeader(group));
 
                     foreach (var item in group.Scenes)
                         _sceneList.Add(CreateSceneRow(item));
                 }
 
-                _contentHeight = groups.Count * FolderHeaderHeight
+                _contentHeight = groups.Count(group => !string.IsNullOrEmpty(group.Folder)) * FolderHeaderHeight
                     + groups.Sum(group => group.Scenes.Count) * RowHeight;
             }
 

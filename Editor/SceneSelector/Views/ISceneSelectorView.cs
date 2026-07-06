@@ -9,6 +9,7 @@ namespace UnityTools.Editor.SceneSelector.Views
         event Action<string> SearchChanged;
         event Action<SceneInfo> OpenSceneRequested;
         event Action<SceneInfo> AdditiveToggleRequested;
+        event Action<bool> GroupingChanged;
         event Action ContentChanged;
 
         float PreferredHeight { get; }

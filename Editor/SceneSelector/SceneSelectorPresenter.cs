@@ -22,6 +22,7 @@ namespace UnityTools.Editor.SceneSelector
             _view.SearchChanged += _model.SetSearchFilter;
             _view.OpenSceneRequested += _sceneOpener.Open;
             _view.AdditiveToggleRequested += OnAdditiveToggleRequested;
+            _view.GroupingChanged += _model.SetGroupByFolder;
         }
 
         public void Start() => _model.Refresh();
@@ -34,6 +35,7 @@ namespace UnityTools.Editor.SceneSelector
             _view.SearchChanged -= _model.SetSearchFilter;
             _view.OpenSceneRequested -= _sceneOpener.Open;
             _view.AdditiveToggleRequested -= OnAdditiveToggleRequested;
+            _view.GroupingChanged -= _model.SetGroupByFolder;
         }
 
         private void OnModelChanged() => _view.ShowScenes(BuildViewModels(_model.GetFilteredGroups()));

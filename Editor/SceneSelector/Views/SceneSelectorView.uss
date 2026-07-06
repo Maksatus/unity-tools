@@ -29,6 +29,10 @@
     background-color: rgba(128, 170, 255, 0.2);
 }
 
+.scene-selector__group-toggle--grouped {
+    background-color: rgba(128, 170, 255, 0.25);
+}
+
 .scene-selector__list {
     flex-grow: 1;
     padding: 4px 4px 6px 4px;

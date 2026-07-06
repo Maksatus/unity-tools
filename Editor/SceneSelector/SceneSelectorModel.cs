@@ -11,12 +11,14 @@ namespace UnityTools.Editor.SceneSelector
         private readonly ISceneRepository _repository;
         private IReadOnlyList<SceneInfo> _allScenes = Array.Empty<SceneInfo>();
         private string _searchFilter = string.Empty;
+        private bool _groupByFolder = true;
 
         public event Action Changed;
 
-        public SceneSelectorModel(ISceneRepository repository)
+        public SceneSelectorModel(ISceneRepository repository, bool groupByFolder = true)
         {
             _repository = repository;
+            _groupByFolder = groupByFolder;
         }
 
         public void Refresh()
@@ -34,10 +36,27 @@ namespace UnityTools.Editor.SceneSelector
             Changed?.Invoke();
         }
 
+        public void SetGroupByFolder(bool groupByFolder)
+        {
+            if (groupByFolder == _groupByFolder) return;
+
+            _groupByFolder = groupByFolder;
+            Changed?.Invoke();
+        }
+
         public IReadOnlyList<SceneGroup> GetFilteredGroups()
         {
-            return _allScenes
-                .Where(MatchesFilter)
+            var filtered = _allScenes.Where(MatchesFilter);
+
+            if (!_groupByFolder)
+            {
+                var flat = filtered.OrderBy(scene => scene.Name, StringComparer.OrdinalIgnoreCase).ToList();
+                return flat.Count == 0
+                    ? Array.Empty<SceneGroup>()
+                    : new[] { new SceneGroup(string.Empty, flat) };
+            }
+
+            return filtered
                 .GroupBy(scene => scene.Folder)
                 .Select(group => new SceneGroup(group.Key, group.ToList()))
                 .ToList();
