@@ -1,4 +1,6 @@
-namespace Editor.RenameObjects
+using UnityTools.Editor.RenameObjects.Services;
+using UnityTools.Editor.RenameObjects.Views;
+namespace UnityTools.Editor.RenameObjects
 {
     public class RenameObjectsPresenter
     {

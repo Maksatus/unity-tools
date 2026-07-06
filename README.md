@@ -1,6 +1,6 @@
 # Unity Tools
 
-Small quality-of-life editor tools for Unity. UI Toolkit, MVP architecture, zero runtime code.
+Small quality-of-life editor tools for Unity.
 
 ## Installation
 

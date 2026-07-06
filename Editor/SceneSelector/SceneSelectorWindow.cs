@@ -1,21 +1,20 @@
+using UnityTools.Editor.SceneSelector.Services;
+using UnityTools.Editor.SceneSelector.Settings;
+using UnityTools.Editor.SceneSelector.Views;
+using static UnityTools.Editor.SceneSelector.SceneSelectorConstants;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Editor.SceneSelector
+namespace UnityTools.Editor.SceneSelector
 {
     public class SceneSelectorWindow : EditorWindow
     {
-        private const string WindowTitle = "Scene Selector";
-        private const float WindowWidth = 260f;
-        private const float MinWindowHeight = 200f;
-        private const float MaxWindowHeight = 700f;
-
         private SceneSelectorPresenter _presenter;
         private ISceneSelectorView _view;
 
-        [MenuItem("Tools/Scene Selector %`")]
+        [MenuItem(MenuPath)]
         public static void Init()
         {
             var window = GetWindow<SceneSelectorWindow>(WindowTitle);
@@ -27,13 +26,16 @@ namespace Editor.SceneSelector
             _view = new SceneSelectorView(rootVisualElement);
             _view.ContentChanged += UpdateWindowSize;
 
-            var model = new SceneSelectorModel(new AssetDatabaseSceneRepository());
+            var model = new SceneSelectorModel(new AssetDatabaseSceneRepository(SceneSelectorSettings.instance));
             _presenter = new SceneSelectorPresenter(model, _view, new EditorSceneOpener());
             _presenter.Start();
 
             EditorSceneManager.sceneOpened += OnSceneOpened;
             EditorSceneManager.sceneClosed += OnSceneClosed;
+            SceneSelectorSettings.Changed += OnSettingsChanged;
         }
+
+        private void OnSettingsChanged() => _presenter?.RefreshScenes();
 
         private void OnProjectChange() => _presenter?.RefreshScenes();
 
@@ -45,6 +47,7 @@ namespace Editor.SceneSelector
         {
             EditorSceneManager.sceneOpened -= OnSceneOpened;
             EditorSceneManager.sceneClosed -= OnSceneClosed;
+            SceneSelectorSettings.Changed -= OnSettingsChanged;
 
             if (_view != null)
                 _view.ContentChanged -= UpdateWindowSize;

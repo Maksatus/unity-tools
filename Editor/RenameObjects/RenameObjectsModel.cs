@@ -1,10 +1,12 @@
+using UnityTools.Editor.RenameObjects.Data;
+using UnityTools.Editor.RenameObjects.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Editor.RenameObjects
+namespace UnityTools.Editor.RenameObjects
 {
     public class RenameObjectsModel
     {

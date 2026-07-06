@@ -12,3 +12,12 @@ A compact popup listing every scene in `Assets/`, grouped by folder.
 - **`−` button** — unloads an additively loaded scene. Loaded scenes are highlighted in blue.
 
 The list refreshes automatically when scenes are added, removed, or opened elsewhere in the editor.
+
+## Exclusions
+
+Hide scenes you never open by hand via **Project Settings → Unity Tools → Scene Selector**:
+
+- **Excluded Folders** — path prefixes, e.g. `Assets/ThirdParty`.
+- **Excluded Scenes** — a scene name (`Boot`) or a full path (`Assets/Scenes/Boot.unity`).
+
+The lists are stored per project in `ProjectSettings/SceneSelectorSettings.asset`, so they can be committed and shared with the team.

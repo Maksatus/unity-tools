@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityTools.Editor.MaterialCleaner.Services;
 
-namespace Editor.MaterialCleaner
+namespace UnityTools.Editor.MaterialCleaner
 {
     public class MaterialCleanerModel
     {

@@ -1,17 +1,16 @@
+using UnityTools.Editor.RenameObjects.Services;
+using UnityTools.Editor.RenameObjects.Views;
 using UnityEditor;
 using UnityEngine;
+using static UnityTools.Editor.RenameObjects.RenameObjectsConstants;
 
-namespace Editor.RenameObjects
+namespace UnityTools.Editor.RenameObjects
 {
     public class RenameObjectsTool : EditorWindow
     {
-        private const string WindowTitle = "Rename Objects";
-        private const float MinWindowWidth = 300f;
-        private const float MinWindowHeight = 400f;
-
         private RenameObjectsPresenter _presenter;
 
-        [MenuItem("Tools/RenameObjectsTool #`")]
+        [MenuItem(MenuPath)]
         public static void ShowWindow()
         {
             var window = GetWindow<RenameObjectsTool>(WindowTitle);

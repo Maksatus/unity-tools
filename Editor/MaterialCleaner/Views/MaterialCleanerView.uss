@@ -1,0 +1,196 @@
+/* --- Toolbar --- */
+
+.material-cleaner__toolbar {
+    padding: 6px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.material-cleaner__toolbar-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.material-cleaner__toolbar-label {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-right: 4px;
+}
+
+.material-cleaner__action-button {
+    flex-grow: 1;
+    height: 24px;
+    margin: 0 2px;
+    border-radius: 4px;
+}
+
+.material-cleaner__action-button--danger:hover {
+    background-color: rgba(216, 100, 88, 0.4);
+}
+
+.material-cleaner__type-button {
+    flex-grow: 1;
+    height: 20px;
+    margin: 0 2px;
+    font-size: 11px;
+    border-radius: 3px;
+}
+
+.material-cleaner__summary {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.material-cleaner__summary--has-old {
+    color: rgb(255, 190, 100);
+    opacity: 1;
+}
+
+/* --- Material list --- */
+
+.material-cleaner__list {
+    flex-grow: 1;
+    padding: 6px;
+}
+
+.material-cleaner__card {
+    margin-bottom: 8px;
+    padding: 6px;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(128, 128, 128, 0.08);
+}
+
+.material-cleaner__card-header {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.material-cleaner__ping-button {
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 22px;
+    margin: 0 2px;
+    padding: 0 6px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.material-cleaner__ping-button--shader {
+    opacity: 0.85;
+}
+
+.material-cleaner__ping-label {
+    flex-grow: 1;
+    flex-shrink: 1;
+    -unity-text-align: middle-left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.material-cleaner__header-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.material-cleaner__null-shader {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 2px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: rgb(255, 120, 110);
+    -unity-font-style: bold;
+    background-color: rgba(216, 100, 88, 0.2);
+}
+
+/* --- Property groups --- */
+
+.material-cleaner__group {
+    margin: 2px 4px;
+}
+
+.material-cleaner__group-title {
+    font-size: 11px;
+    -unity-font-style: bold;
+    opacity: 0.65;
+    margin: 4px 0 2px 2px;
+}
+
+.material-cleaner__property-row {
+    flex-direction: row;
+    align-items: center;
+    height: 20px;
+    padding: 0 4px 0 10px;
+    border-radius: 3px;
+}
+
+.material-cleaner__property-row:hover {
+    background-color: rgba(128, 170, 255, 0.08);
+}
+
+.material-cleaner__property-name {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.material-cleaner__status {
+    font-size: 10px;
+    padding: 1px 6px;
+    margin-left: 4px;
+    border-radius: 3px;
+}
+
+.material-cleaner__status--exists {
+    opacity: 0.45;
+    background-color: rgba(128, 128, 128, 0.2);
+}
+
+.material-cleaner__status--old {
+    color: rgb(40, 30, 10);
+    background-color: rgba(255, 190, 100, 0.85);
+}
+
+.material-cleaner__status--unknown {
+    color: rgb(238, 238, 238);
+    background-color: rgba(216, 100, 88, 0.7);
+}
+
+.material-cleaner__remove-button {
+    height: 18px;
+    margin-left: 4px;
+    padding: 0 8px;
+    font-size: 10px;
+    border-radius: 3px;
+    border-width: 0;
+    background-color: rgba(216, 100, 88, 0.35);
+}
+
+.material-cleaner__remove-button:hover {
+    background-color: rgba(216, 100, 88, 0.65);
+}
+
+/* --- Empty state --- */
+
+.material-cleaner__empty {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.material-cleaner__empty-label {
+    -unity-font-style: italic;
+    opacity: 0.5;
+}

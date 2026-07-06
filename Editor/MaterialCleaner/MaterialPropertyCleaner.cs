@@ -1,17 +1,16 @@
 using UnityEditor;
 using UnityEngine;
+using UnityTools.Editor.MaterialCleaner.Services;
+using UnityTools.Editor.MaterialCleaner.Views;
+using static UnityTools.Editor.MaterialCleaner.MaterialCleanerConstants;
 
-namespace Editor.MaterialCleaner
+namespace UnityTools.Editor.MaterialCleaner
 {
     public class MaterialPropertyCleaner : EditorWindow
     {
-        private const string WindowTitle = "Property Cleaner";
-        private const float MinWindowWidth = 380f;
-        private const float MinWindowHeight = 300f;
-
         private MaterialCleanerPresenter _presenter;
 
-        [MenuItem("Tools/Material Property Cleaner")]
+        [MenuItem(MenuPath)]
         public static void Init()
         {
             var window = GetWindow<MaterialPropertyCleaner>(WindowTitle);

@@ -1,7 +1,10 @@
+using UnityTools.Editor.SceneSelector.Data;
+using UnityTools.Editor.SceneSelector.Services;
+using UnityTools.Editor.SceneSelector.Views;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Editor.SceneSelector
+namespace UnityTools.Editor.SceneSelector
 {
     public class SceneSelectorPresenter
     {

@@ -1,7 +1,10 @@
 using System.Linq;
 using UnityEngine;
+using UnityTools.Editor.MaterialCleaner.Data;
+using UnityTools.Editor.MaterialCleaner.Services;
+using UnityTools.Editor.MaterialCleaner.Views;
 
-namespace Editor.MaterialCleaner
+namespace UnityTools.Editor.MaterialCleaner
 {
     public class MaterialCleanerPresenter
     {
@@ -40,13 +43,13 @@ namespace Editor.MaterialCleaner
             _view.ShowMaterials(_model.Materials.Select(_propertyService.Inspect).ToList());
         }
 
-        private void OnRemovePropertyRequested(Material material, MaterialPropertyType type, string propertyName)
+        private void OnRemovePropertyRequested(Material material, MaterialSavedPropertyType type, string propertyName)
         {
             _propertyService.RemoveProperty(material, type, propertyName);
             OnModelChanged();
         }
 
-        private void OnRemoveUnusedOfTypeRequested(MaterialPropertyType type)
+        private void OnRemoveUnusedOfTypeRequested(MaterialSavedPropertyType type)
         {
             foreach (var material in _model.Materials)
                 _propertyService.RemoveUnusedProperties(material, type);
@@ -57,7 +60,7 @@ namespace Editor.MaterialCleaner
         private void OnRemoveAllUnusedRequested()
         {
             foreach (var material in _model.Materials)
-            foreach (MaterialPropertyType type in System.Enum.GetValues(typeof(MaterialPropertyType)))
+            foreach (MaterialSavedPropertyType type in System.Enum.GetValues(typeof(MaterialSavedPropertyType)))
                 _propertyService.RemoveUnusedProperties(material, type);
 
             OnModelChanged();

@@ -1,8 +1,10 @@
+using UnityTools.Editor.SceneSelector.Data;
+using UnityTools.Editor.SceneSelector.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Editor.SceneSelector
+namespace UnityTools.Editor.SceneSelector
 {
     public class SceneSelectorModel
     {
@@ -26,8 +28,7 @@ namespace Editor.SceneSelector
         public void SetSearchFilter(string filter)
         {
             var normalized = filter?.Trim() ?? string.Empty;
-            if (normalized == _searchFilter)
-                return;
+            if (normalized == _searchFilter) return;
 
             _searchFilter = normalized;
             Changed?.Invoke();
