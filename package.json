@@ -1,7 +1,11 @@
 {
   "name": "com.maksatus.unity-tools",
   "description": "Different little tools.",
-  "version": "0.0.2",
-  "unity": "2022.3",
-  "displayName": "Unity Tools"
+  "version": "0.1.0",
+  "unity": "6000.3",
+  "displayName": "Unity Tools",
+  "author": {
+    "name": "Maksatus",
+    "url": "https://github.com/Maksatus"
+  }
 }
