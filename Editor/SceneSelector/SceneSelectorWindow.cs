@@ -69,9 +69,10 @@ namespace UnityTools.Editor.SceneSelector
 
         private void UpdateWindowSize()
         {
+            var width = Mathf.Clamp(_view.PreferredWidth, MinWindowWidth, MaxWindowWidth);
             var height = Mathf.Clamp(_view.PreferredHeight, MinWindowHeight, MaxWindowHeight);
-            minSize = new Vector2(WindowWidth, height);
-            maxSize = new Vector2(WindowWidth, height);
+            minSize = new Vector2(width, height);
+            maxSize = new Vector2(width, height);
         }
     }
 }

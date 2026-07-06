@@ -13,6 +13,7 @@ namespace UnityTools.Editor.SceneSelector.Views
         event Action ContentChanged;
 
         float PreferredHeight { get; }
+        float PreferredWidth { get; }
 
         void ShowScenes(IReadOnlyList<SceneGroupViewModel> groups);
     }

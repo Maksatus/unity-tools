@@ -4,7 +4,8 @@ namespace UnityTools.Editor.SceneSelector
     {
         public const string MenuPath = "Tools/Scene Selector %`";
         public const string WindowTitle = "Scene Selector";
-        public const float WindowWidth = 260f;
+        public const float MinWindowWidth = 260f;
+        public const float MaxWindowWidth = 600f;
         public const float MinWindowHeight = 200f;
         public const float MaxWindowHeight = 700f;
 
@@ -19,7 +20,9 @@ namespace UnityTools.Editor.SceneSelector
         public const string AddAdditiveTooltip = "Load scene additively";
         public const string RemoveAdditiveTooltip = "Remove scene from hierarchy";
         public const float RowHeight = 26f;
+        public const float RowWidthOverhead = 130f;
         public const float FolderHeaderHeight = 26f;
+        public const float FolderHeaderWidthOverhead = 80f;
         public const float HeaderHeight = 34f;
         public const float EmptyStateHeight = 80f;
 

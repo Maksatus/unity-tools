@@ -13,6 +13,7 @@ namespace UnityTools.Editor.SceneSelector.Views
     {
         private readonly ScrollView _sceneList;
         private float _contentHeight;
+        private float _contentWidth;
         private bool _groupByFolder = true;
 
         public event Action<string> SearchChanged;
@@ -22,6 +23,7 @@ namespace UnityTools.Editor.SceneSelector.Views
         public event Action ContentChanged;
 
         public float PreferredHeight => _contentHeight + HeaderHeight;
+        public float PreferredWidth => _contentWidth;
 
         public SceneSelectorView(VisualElement root, bool groupByFolder = true)
         {
@@ -78,6 +80,7 @@ namespace UnityTools.Editor.SceneSelector.Views
             {
                 _sceneList.Add(CreateEmptyState());
                 _contentHeight = EmptyStateHeight;
+                _contentWidth = MinWindowWidth;
             }
             else
             {
@@ -92,9 +95,31 @@ namespace UnityTools.Editor.SceneSelector.Views
 
                 _contentHeight = groups.Count(group => !string.IsNullOrEmpty(group.Folder)) * FolderHeaderHeight
                     + groups.Sum(group => group.Scenes.Count) * RowHeight;
+                _contentWidth = CalculateContentWidth(groups);
             }
 
             ContentChanged?.Invoke();
+        }
+
+        private static float CalculateContentWidth(IReadOnlyList<SceneGroupViewModel> groups)
+        {
+            var width = 0f;
+
+            foreach (var group in groups)
+            {
+                if (!string.IsNullOrEmpty(group.Folder))
+                    width = Math.Max(width, MeasureText(group.Folder) + FolderHeaderWidthOverhead);
+
+                foreach (var item in group.Scenes)
+                    width = Math.Max(width, MeasureText(item.Scene.Name) + RowWidthOverhead);
+            }
+
+            return width;
+        }
+
+        private static float MeasureText(string text)
+        {
+            return EditorStyles.label.CalcSize(new UnityEngine.GUIContent(text)).x;
         }
 
         private static VisualElement CreateFolderHeader(SceneGroupViewModel group)

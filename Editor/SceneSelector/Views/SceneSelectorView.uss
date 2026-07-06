@@ -98,6 +98,7 @@
 
 .scene-selector__scene-name {
     flex-grow: 1;
+    flex-shrink: 1;
     -unity-text-align: middle-left;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -112,6 +113,7 @@
     width: 20px;
     height: 18px;
     margin: 0 0 0 4px;
+    flex-shrink: 0;
     padding: 0;
     border-width: 0;
     border-radius: 3px;
