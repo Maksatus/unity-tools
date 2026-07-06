@@ -34,12 +34,12 @@ namespace UnityTools.Editor.SceneSelector.Settings
             EditorGUILayout.Space();
 
             EditorGUILayout.PropertyField(
-                serializedObject.FindProperty("_excludedFolders"),
+                serializedObject.FindProperty("ExcludedFolders"),
                 new GUIContent("Excluded Folders"),
                 includeChildren: true);
 
             EditorGUILayout.PropertyField(
-                serializedObject.FindProperty("_excludedScenes"),
+                serializedObject.FindProperty("ExcludedScenes"),
                 new GUIContent("Excluded Scenes"),
                 includeChildren: true);
 
